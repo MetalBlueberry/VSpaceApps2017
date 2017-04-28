@@ -12,6 +12,11 @@ int main(int argc, char *argv[])
     // Use platform-specific fonts instead of V-Play's default font
     vplay.setPreservePlatformFonts(true);
 
+
+    qmlRegisterSingletonType( QUrl("qrc:/qml/Singletons/BackButtonSignal.qml"), "BackButtonSignal", 1, 0, "BackButtonSignal" );
+    qmlRegisterSingletonType( QUrl("qrc:/qml/Singletons/GlobalStorage.qml"), "GlobalStorage", 1, 0, "GlobalStorage" );
+
+
     QQmlApplicationEngine engine;
     vplay.initialize(&engine);
 
