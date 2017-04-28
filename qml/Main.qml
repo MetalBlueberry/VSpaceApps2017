@@ -12,26 +12,47 @@ App {
     //licenseKey: "<generate one from https://v-play.net/licenseKey>"
 
     Page {
-        title: qsTr("Main Page")
+        title: qsTr("Calcifer")
 
         AppMap {
+            id: map
             anchors.fill: parent
 
             // configure plugin for displaying map here
             // see http://doc.qt.io/qt-5/qtlocation-index.html#plugin-references-and-parameters
             // for a documentation of possible Location Plugins
-            plugin: Plugin {
-                name: "mapbox" // e.g. mapbox, ...
-//                parameters: [
-//                    // set required plugin parameters here
-//                ]
+            plugin: Plugin
+            {
+                id: plugin
+                //Plugin 1
+                name: "osm"
+
+                //Plugin 2
+                //                name: "mapbox"
+                //                parameters: [  PluginParameter {
+                //                    name: "mapbox.map_id"
+                //                    value: "mapbox.streets"
+                //                  },
+                //                  PluginParameter {
+                //                    name: "mapbox.access_token"
+                //                    value: "pk.eyJ1IjoiZ3R2cGxheSIsImEiOiJjaWZ0Y2pkM2cwMXZqdWVsenJhcGZ3ZDl5In0.6xMVtyc0CkYNYup76iMVNQ"
+                //                  }]
+
             }
+            copyrightsVisible:  false;
             enableUserPosition: true
             showUserPosition: true
-            // Center map to Vienna, AT
-            center: QtPositioning.coordinate(48.208417, 16.372472)
+            // Center map to Burgos
+            center: QtPositioning.coordinate(42.358308, -3.642678)
             zoomLevel: 13
+            //onMapClicked: zoomToUserPosition()
+            FloatingActionButton{
+                icon: IconType.asterisk
+                onClicked: map.zoomToUserPosition()
+                visible: true // show on all platforms, default is only Android
+            }
         }
+
 
     }
 }
