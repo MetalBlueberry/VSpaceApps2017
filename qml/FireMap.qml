@@ -11,12 +11,17 @@ import GlobalStorage 1.0
 import QtQuick.XmlListModel 2.0
 
 NavigationItem{
+    id:base
     title: qsTr("Calcifer")
+    function showPlace(coordinate){
+        center = coordinate
+    }
 
+    property var center: QtPositioning.coordinate(42.358308, -3.642678)
     AppMap {
         id: map
         anchors.fill: parent
-
+        center: base.center
         // configure plugin for displaying map here
         // see http://doc.qt.io/qt-5/qtlocation-index.html#plugin-references-and-parameters
         // for a documentation of possible Location Plugins
@@ -45,7 +50,7 @@ NavigationItem{
         showUserPosition: true
 
         // Center map to Burgos
-        center: QtPositioning.coordinate(42.358308, -3.642678)
+        //center: QtPositioning.coordinate(42.358308, -3.642678)
         zoomLevel: 13
         //onMapClicked: zoomToUserPosition()
 
@@ -97,7 +102,7 @@ NavigationItem{
             onXmlChanged: {
                 map.clearMapItems()
                 globalStorageConnection.reloadItems()
-               // notesXml.reloadItems()
+                // notesXml.reloadItems()
             }
             function reloadItems()
             {

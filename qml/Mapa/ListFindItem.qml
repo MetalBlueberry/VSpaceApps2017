@@ -1,13 +1,19 @@
 import VPlayApps 1.0
 import QtQuick 2.0
+import QtPositioning 5.0
 
 MouseArea{
     height: 100
     width: parent.width
+
+    signal showPlace(var coordinate)
+
     hoverEnabled: true
     onClicked: {
-       // button.color="blue"
-
+      var coordinate = QtPositioning.coordinate(parseFloat(model.cords.x.toString()),parseFloat(model.cords.y.toString()));
+       if(coordinate.isValid){
+           showPlace(coordinate)
+       }
     }
     Rectangle{
         id: button

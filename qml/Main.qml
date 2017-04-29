@@ -62,7 +62,7 @@ App {
         }
 
         FireMap{
-
+            id:firemap
         }
         NavigationItem{
             title: qsTr("Coordenadas")
@@ -82,7 +82,12 @@ App {
                     console.log("Loading....")
                 }
                 model: GlobalStorage.xmlModel.firePoints
-                delegate: ListFindItem{}
+                delegate: ListFindItem{
+                    onShowPlace: {
+                        navigation.currentIndex = 0
+                        firemap.showPlace(coordinate)
+                    }
+                }
                 listView.spacing: 4
 
                 Text{
