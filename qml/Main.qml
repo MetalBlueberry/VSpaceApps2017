@@ -10,7 +10,7 @@ import GlobalStorage 1.0
 
 
 import QtQuick.XmlListModel 2.0
-
+import Calcifer 1.0
 
 App {
     // You get free licenseKeys from https://v-play.net/licenseKey
@@ -38,34 +38,34 @@ App {
     }
 
 
-    WebStorage {
-        id: myWebStorage
+    //    WebStorage {
+    //        id: myWebStorage
 
-        // this can be read in the Text element below
-        property int appStartedCounter
+    //        // this can be read in the Text element below
+    //        property int appStartedCounter
 
-        onInitiallyInServerSyncOrErrorChanged: {
-            // also increase the app counter, if there is no internet connection
-            if(initiallyInServerSyncOrError) {
-                increaseAppStartedCounter()
-            }
-        }
+    //        onInitiallyInServerSyncOrErrorChanged: {
+    //            // also increase the app counter, if there is no internet connection
+    //            if(initiallyInServerSyncOrError) {
+    //                increaseAppStartedCounter()
+    //            }
+    //        }
 
-        function increaseAppStartedCounter() {
-            var appStarts = myWebStorage.getValue("numAppStarts")
-            // if the app was started for the first time, this will be undefined; in that case set it to 1
-            if(appStarts === undefined) {
-                appStarts = 1
-            } else {
-                appStarts++
-            }
-            myWebStorage.setValue("numAppStarts", appStarts)
+    //        function increaseAppStartedCounter() {
+    //            var appStarts = myWebStorage.getValue("numAppStarts")
+    //            // if the app was started for the first time, this will be undefined; in that case set it to 1
+    //            if(appStarts === undefined) {
+    //                appStarts = 1
+    //            } else {
+    //                appStarts++
+    //            }
+    //            myWebStorage.setValue("numAppStarts", appStarts)
 
-            // set the property to the stored value
-            appStartedCounter = appStarts
+    //            // set the property to the stored value
+    //            appStartedCounter = appStarts
 
-        }
-    }
+    //        }
+    //    }
     //inicializa el módulo de comunicación
     VPlayGameNetwork {
         id: gameNetwork
@@ -98,54 +98,43 @@ App {
             title: qsTr("Mensajes")
 
             ListPage{
-
-                XmlListModel{
+                XmlMapParser{
                     id: xmlModel
-                    // source: "file:///Users/Victor/Downloads/data.xml"
-                    //  source: "file:///Users/Victor/Downloads/MODIS_C6_Europe_24h.kml"
-                    source: "http://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Europe_24h.kml"
-                    namespaceDeclarations: "declare namespace media=\"http://www.opengis.net/kml/2.2\";"
-                    // query: "/kml/Placemark"
-                    query: "/kml/Document/Folder/Placemark"
-                    XmlRole { name: "name"; query: "name/string()" }
-                    XmlRole { name: "point"; query: "Point/coordinates/string()" }
+
+                    Component.onCompleted: xmlModel.getData()
                 }
+                //                XmlListModel{
+                //                    id: xmlModel
+                //                   // source: "file:///Users/Victor/Downloads/data.xml"
+                //                  //  source: "file:///Users/Victor/Downloads/MODIS_C6_Europe_24h.kml"
+                //                    source: "http://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Europe_24h.kml"
+                //                    namespaceDeclarations: "declare namespace media=\"http://www.opengis.net/kml/2.2\";"
+                //                   // query: "/kml/Placemark"
+                //                    query: "/kml/Document/Folder/Placemark"
+                //                    XmlRole { name: "name"; query: "name/string()" }
+                //                    XmlRole { name: "point"; query: "Point/coordinates/string()" }
+                //                }
 
                 anchors.fill: parent
                 pullToRefreshHandler.pullToRefreshEnabled: true
                 pullToRefreshHandler.onRefresh: {
-                    xmlModel.reload()
+                    xmlModel.getData()
                     console.log("Loading....")
                 }
-                model: xmlModel
+                model: xmlModel.firePoints
                 delegate: Text{
                     width: 100
                     height: 25
-                    text: model.point
+                    text: model.cords.x.toString() + " - " + model.cords.y.toString()
                 }
                 Text{
                     anchors.centerIn: parent
-                    text:xmlModel.progress.toString()
+                   // text:xmlModel.firePoints.length
                 }
             }
 
         }
         Options{}
     }
-    //    AppDrawer{
-    //                //drawerPosition: drawerPositionLeft
-    //                Rectangle{
-    //                    anchors.fill: parent
-    //                    color: "white"
-    //                    radius: 10
-    //                }
-    //            }
-    //    AppDrawer{
-    //        drawerPosition: drawerPositionRight
-    //        Rectangle{
-    //            anchors.fill: parent
-    //            color: "white"
-    //            radius: 10
-    //        }
-    //    }
+
 }

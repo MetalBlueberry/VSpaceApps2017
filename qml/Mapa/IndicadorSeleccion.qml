@@ -8,7 +8,7 @@ import BackButtonSignal 1.0
 MapQuickItem {
     id:base
     sourceItem: Rectangle{
-        color: "orange"
+        color: "black"
         width: dp(32)/10
         height: width
         radius: width
@@ -20,8 +20,8 @@ MapQuickItem {
             id: aura
             radius: width
             color: "transparent"
-            border.color: "red"
-            border.width: dp(1)
+            border.color: "black"
+            border.width: dp(2.5)
             ParallelAnimation {
                 running: true
                 loops:  Animation.Infinite

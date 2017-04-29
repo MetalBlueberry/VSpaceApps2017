@@ -47,11 +47,18 @@ NavigationItem{
         zoomLevel: 13
         //onMapClicked: zoomToUserPosition()
 
+
+        FireIndicator{
+           punto: Qt.point(42.358651,-3.634317);
+        }
+        FireIndicator{
+            punto: Qt.point(42.358651,-3.634);
+            //coordinate:QtPositioning.coordinate(42.358651,-3.634317)
+        }
         IndicadorSeleccion{
             id:marker
             coordinate: map.center
         }
-
         MouseArea {
             anchors.fill: parent
             onClicked: {
