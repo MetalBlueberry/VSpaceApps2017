@@ -11,7 +11,7 @@ MapQuickItem {
         color: "black"
         width: dp(32)/10
         height: width
-        radius: width
+       radius: width
         id: image
         Rectangle{
             anchors.centerIn: parent
@@ -20,7 +20,7 @@ MapQuickItem {
             id: aura
             radius: width
             color: "transparent"
-            border.color: "black"
+            border.color: "green"
             border.width: dp(2.5)
             ParallelAnimation {
                 running: true
@@ -34,6 +34,6 @@ MapQuickItem {
     }
 
     anchorPoint.x: image.width / 2
-    anchorPoint.y: image.height / 2
+    anchorPoint.y: image.height
 
 }

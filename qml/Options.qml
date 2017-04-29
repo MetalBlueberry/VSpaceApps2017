@@ -39,6 +39,7 @@ NavigationItem{
                     font.pixelSize: sp(18)
                 }
                 RadioButton {
+                    width: btopciones.width
                     checked: true
                     text: qsTr("24 h")
                     font.pixelSize: sp(18)
@@ -48,6 +49,7 @@ NavigationItem{
                     }
                 }
                 RadioButton {
+                    width: btopciones.width
                     text: qsTr("48 h")
                     font.pixelSize: sp(18)
                     onClicked: {
@@ -73,6 +75,7 @@ NavigationItem{
                     font.pixelSize: sp(18)
                 }
                 RadioButton {
+                    width: btopciones.width
                     checked: true
                     text: qsTr("1 km")
                     font.pixelSize: sp(18)
@@ -82,6 +85,7 @@ NavigationItem{
                     }
                 }
                 RadioButton {
+                    width: btopciones.width
                     text: qsTr("375 m")
                     font.pixelSize: sp(18)
                     onClicked: {
