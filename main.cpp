@@ -2,7 +2,7 @@
 #include <VPApplication>
 
 #include <QQmlApplicationEngine>
-
+#include "xmlmapparser.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +15,12 @@ int main(int argc, char *argv[])
 
     qmlRegisterSingletonType( QUrl("qrc:/qml/Singletons/BackButtonSignal.qml"), "BackButtonSignal", 1, 0, "BackButtonSignal" );
     qmlRegisterSingletonType( QUrl("qrc:/qml/Singletons/GlobalStorage.qml"), "GlobalStorage", 1, 0, "GlobalStorage" );
+
+    qmlRegisterType<XmlMapParser>("Calcifer",1,0,"XmlMapParser");
+qmlRegisterType<FireMapPoint>();
+    ///TEST XML
+//    XmlMapParser parser;
+//    parser.getData();
 
 
     QQmlApplicationEngine engine;

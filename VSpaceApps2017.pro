@@ -1,7 +1,7 @@
 # allows to add DEPLOYMENTFOLDERS and links to the V-Play library and QtCreator auto-completion
 CONFIG += v-play
 
-QT += positioning location
+QT += positioning location xml network
 
 qmlFolder.source = qml
 DEPLOYMENTFOLDERS += qmlFolder # comment for publishing
@@ -24,7 +24,9 @@ RESOURCES +=   resources.qrc # uncomment for publishing
 
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    xmlmapparser.cpp \
+    firemappoint.cpp
 
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
@@ -43,3 +45,7 @@ win32 {
 macx {
     ICON = macx/app_icon.icns
 }
+
+HEADERS += \
+    xmlmapparser.h \
+    firemappoint.h
