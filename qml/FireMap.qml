@@ -66,7 +66,7 @@ NavigationItem{
             target: GlobalStorage.xmlModel
             onPointsChanged:{
                 console.log("cargando")
-                map.clearMapItems()
+              //  map.clearMapItems()
                 var auxObj = GlobalStorage.xmlModel.firePoints;
                 var auxEndCondition = GlobalStorage.xmlModel.firePoints.length
                 for(var x = 0; x < auxEndCondition; x++){
@@ -83,6 +83,7 @@ NavigationItem{
             id:marker
             coordinate: map.center
         }
+
         MouseArea {
             anchors.fill: parent
             onClicked: {
@@ -107,5 +108,9 @@ NavigationItem{
 //            from:0
 //            to:1000
 //        }
+        MapNote{
+            id:noteWindow
+            coordinate: map.center
+        }
     }
 }

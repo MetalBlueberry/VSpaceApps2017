@@ -8,30 +8,45 @@ import BackButtonSignal 1.0
 MapQuickItem {
     id:base
     sourceItem: Image{
-        //color: "black"
-        width: dp(32)/10
-        height: width
-      //  radius: width
-      //  source: url de la imagen
         id: image
+        //color: "black"
+        width: 420
+        height: 280
+        sourceSize.width: image.width
+        sourceSize.height: image.height
+        fillMode: Image.Stretch
+      //  radius: width
+        source: "qrc:/qml/img/ventana_nota.svg"
+
         Rectangle{
-            anchors.centerIn: parent
-            width: parent.width*10
-            height: width
-            id: aura
-            radius: width
-            color: "transparent"
-            border.color: "black"
-            border.width: dp(2.5)
-            ParallelAnimation {
-                running: true
-                loops:  Animation.Infinite
-                NumberAnimation{target: aura; property: "width"; duration: 1000 ; from: dp(24) ; to: dp(32); easing.type: Easing.OutCubic }
-                NumberAnimation{target: aura; property: "opacity"; duration: 1000 ; from: 1 ; to: 0;  easing.type: Easing.OutCubic}
+            width: image.width - 40
+            height: image.height/2
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset:  -image.height/5
+            radius: 10
+            color: "white"
+            AppTextEdit{
+//                width: parent.width
+//                height: parent.height
+                anchors.margins: 8
+                anchors.fill: parent
+                placeholderText: qsTr("Escribe un mensaje")
+                font.pixelSize: sp(14)
             }
-
-
         }
+        AppButton{
+            id: btGuardarNota
+            text: "Guardar"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset:  image.height/6
+            width: 200
+            height: 50
+            visible: true
+            fontBold: true
+        }
+
     }
 
     anchorPoint.x: image.width / 2
