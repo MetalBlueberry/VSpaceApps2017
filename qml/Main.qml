@@ -8,6 +8,7 @@ import "Mapa/"
 import BackButtonSignal 1.0
 import GlobalStorage 1.0
 
+
 import QtQuick.XmlListModel 2.0
 
 
@@ -90,9 +91,9 @@ App {
             color: navigation.navigationDrawerItemPressed ? "red" : "green"
         }
 
-       FireMap{
+        FireMap{
 
-       }
+        }
         NavigationItem{
             title: qsTr("Mensajes")
 
@@ -100,11 +101,11 @@ App {
 
                 XmlListModel{
                     id: xmlModel
-                   // source: "file:///Users/Victor/Downloads/data.xml"
-                  //  source: "file:///Users/Victor/Downloads/MODIS_C6_Europe_24h.kml"
+                    // source: "file:///Users/Victor/Downloads/data.xml"
+                    //  source: "file:///Users/Victor/Downloads/MODIS_C6_Europe_24h.kml"
                     source: "http://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Europe_24h.kml"
                     namespaceDeclarations: "declare namespace media=\"http://www.opengis.net/kml/2.2\";"
-                   // query: "/kml/Placemark"
+                    // query: "/kml/Placemark"
                     query: "/kml/Document/Folder/Placemark"
                     XmlRole { name: "name"; query: "name/string()" }
                     XmlRole { name: "point"; query: "Point/coordinates/string()" }
@@ -129,7 +130,7 @@ App {
             }
 
         }
-
+        Options{}
     }
     //    AppDrawer{
     //                //drawerPosition: drawerPositionLeft
