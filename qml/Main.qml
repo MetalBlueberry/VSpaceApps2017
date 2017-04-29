@@ -98,11 +98,7 @@ App {
             title: qsTr("Mensajes")
 
             ListPage{
-                XmlMapParser{
-                    id: xmlModel
 
-                    Component.onCompleted: xmlModel.getData()
-                }
                 //                XmlListModel{
                 //                    id: xmlModel
                 //                   // source: "file:///Users/Victor/Downloads/data.xml"
@@ -118,10 +114,10 @@ App {
                 anchors.fill: parent
                 pullToRefreshHandler.pullToRefreshEnabled: true
                 pullToRefreshHandler.onRefresh: {
-                    xmlModel.getData()
+                    GlobalStorage.xmlModel.getData()
                     console.log("Loading....")
                 }
-                model: xmlModel.firePoints
+                model: GlobalStorage.xmlModel.firePoints
                 delegate: Text{
                     width: 100
                     height: 25

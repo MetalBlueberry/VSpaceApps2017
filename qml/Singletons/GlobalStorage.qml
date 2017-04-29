@@ -2,10 +2,10 @@ pragma Singleton
 import VPlay 2.0
 import QtQuick 2.0
 //import VPlayPlugins 1.0
-
+import Calcifer 1.0
 WebStorage {
   id: myWebStorage
-
+    property alias xmlModel: internalXmlModel
   // this can be read in the Text element below
   property int appStartedCounter
 
@@ -31,5 +31,9 @@ WebStorage {
     // set the property to the stored value
     appStartedCounter = appStarts
   }
+  XmlMapParser{
+      id: internalXmlModel
 
+      Component.onCompleted: xmlModel.getData()
+  }
 }

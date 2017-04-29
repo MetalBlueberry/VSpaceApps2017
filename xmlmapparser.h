@@ -12,7 +12,8 @@ class XmlMapParser : public QObject
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<FireMapPoint> firePoints READ points NOTIFY pointsChanged)
     Q_PROPERTY(QString source READ getSource WRITE setSource NOTIFY sourceChanged)
-
+    //Q_PROPERTY(bool loading READ loading WRITE setLoading NOTIFY loadingChanged)
+    Q_PROPERTY(int fireCount READ getFireCount NOTIFY fireCountChanged)
 public:
     explicit XmlMapParser(QObject *parent = 0);
 
@@ -20,6 +21,9 @@ public:
 
     Q_INVOKABLE void getData();
     void dumpDebugData();
+
+
+
     static FireMapPoint * atFunction(QQmlListProperty<FireMapPoint> *property, int index);
     static int countFunction(QQmlListProperty<FireMapPoint> *property);
 
@@ -32,9 +36,13 @@ public:
         }
     }
 
+    //int fireCount= 0;
+    int getFireCount() const{return firePoints.length();}
+
 signals:
     void pointsChanged();
     void sourceChanged();
+    void fireCountChanged();
 
 private slots:
     void replyFinished(QNetworkReply* reply);

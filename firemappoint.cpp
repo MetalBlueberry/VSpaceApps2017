@@ -8,7 +8,7 @@ FireMapPoint::FireMapPoint(QObject *parent): QObject(parent)
 void FireMapPoint::setCordsFromString(QString data)
 {
     QStringList split = data.split(',');
-    cords = QPointF(split.at(0).toDouble(),split.at(1).toDouble());
+    cords = QPointF(split.at(1).toDouble(),split.at(0).toDouble());
     emit cordsChanged();
 }
 

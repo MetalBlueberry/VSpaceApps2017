@@ -104,5 +104,7 @@ void XmlMapParser::replyFinished(QNetworkReply *reply)
             reader.raiseError(QObject::tr("Incorrect file"));
     }
     emit pointsChanged();
-     dumpDebugData();
+    emit fireCountChanged();
+    dumpDebugData();
+
 }

@@ -1,7 +1,7 @@
 import VPlayApps 1.0
 import VPlay 2.0
 
-import QtQuick 2.0
+import QtQuick 2.7
 import QtPositioning 5.5
 import QtLocation 5.5
 import "Mapa/"
@@ -47,14 +47,37 @@ NavigationItem{
         zoomLevel: 13
         //onMapClicked: zoomToUserPosition()
 
+        //MapItemView{
+        //       Repeater{
+        //            id: pointRepeater
+        //            //model: GlobalStorage.xmlModel.firePoints
+        //            //model: parseInt(GlobalStorage.xmlModel.fireCount.toString())
+        //            model: slider.value
+        //            delegate: FireIndicator{
+        //                //punto: Qt.point(model.cords.x,model.cords.y)
+        //                //punto: Qt.point(42.358651,-3.634317);
+        //                id: ind
+        //                property var pointObj: GlobalStorage.xmlModel.firePoints[model.index]
+        //                punto: Qt.point(ind.pointObj.cords.x,ind.pointObj.cords.y)
+        //                onPuntoChanged: console.log(punto)
+        //            }
+        //        }
+        Connections{
+            target: GlobalStorage.xmlModel
+            onPointsChanged:{
+                console.log("cargando")
+                map.clearMapItems()
+                for(var x = 0; x < GlobalStorage.xmlModel.firePoints.length; x++){
 
-        FireIndicator{
-           punto: Qt.point(42.358651,-3.634317);
+                    var pointObj = GlobalStorage.xmlModel.firePoints[x]
+                    var circle = Qt.createQmlObject('FireIndicator { punto: Qt.point('+pointObj.cords.x+','+pointObj.cords.y+')}', map)
+                        console.log(pointObj.cords)
+                    map.addMapItem(circle);
+                }
+            }
         }
-        FireIndicator{
-            punto: Qt.point(42.358651,-3.634);
-            //coordinate:QtPositioning.coordinate(42.358651,-3.634317)
-        }
+
+
         IndicadorSeleccion{
             id:marker
             coordinate: map.center
@@ -72,8 +95,16 @@ NavigationItem{
             visible: true // show on all platforms, default is only Android
             Text {
                 anchors.centerIn: parent
-                text: myWebStorage.appStartedCounter.toString()
+                text: GlobalStorage.xmlModel.fireCount.toString()
             }
         }
+//        AppSlider {
+//            id: slider
+//            anchors.top: parent.top
+//            anchors.left: parent.verticalCenter
+//            anchors.right: parent.right
+//            from:0
+//            to:1000
+//        }
     }
 }
