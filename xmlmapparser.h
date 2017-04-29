@@ -30,10 +30,10 @@ public:
     QString source = "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Europe_24h.kml";
     QString getSource()const {return source;}
     void setSource(QString data){
-        if(data.compare(source) != 0){
+        //if(data.compare(source) != 0){
             source = data;
             emit sourceChanged();
-        }
+        //}
     }
 
     //int fireCount= 0;
@@ -43,6 +43,7 @@ signals:
     void pointsChanged();
     void sourceChanged();
     void fireCountChanged();
+    void downloadProgress(qint64 received,qint64 total);
 
 private slots:
     void replyFinished(QNetworkReply* reply);

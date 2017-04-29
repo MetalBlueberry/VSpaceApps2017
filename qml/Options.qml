@@ -3,18 +3,18 @@ import QtQuick 2.0
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
-
+import GlobalStorage 1.0
 NavigationItem{
     title: qsTr("Opciones")
-
+    id:base
     property var periodoDato: "1"
     property var rangoDato: "1"
     property var zoneDato: "Europe"
 
-    property var kmlWolrd_24h_100m: "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Global_24h.kml"
-    property var kmlWolrd_24h_300m: "https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/kml/VNP14IMGTDL_NRT_Global_24h.kml"
-    property var kmlWolrd_48h_100m: "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Global_48h.kml"
-    property var kmlWolrd_48h_300m: "https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/kml/VNP14IMGTDL_NRT_Global_48h.kml"
+    //property var kmlWolrd_24h_100m: "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Global_24h.kml"
+    //property var kmlWolrd_24h_300m: "https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/kml/VNP14IMGTDL_NRT_Global_24h.kml"
+    //property var kmlWolrd_48h_100m: "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Global_48h.kml"
+    //property var kmlWolrd_48h_300m: "https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/kml/VNP14IMGTDL_NRT_Global_48h.kml"
 
     property var kmlEurope_24h_100m: "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Europe_24h.kml"
     property var kmlEurope_24h_300m: "https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/kml/VNP14IMGTDL_NRT_Europe_24h.kml"
@@ -80,18 +80,22 @@ NavigationItem{
         }
     }
     function changeKmlSource(){
-        if(zonaDato == "Europe"){
+        if(zoneDato == "Europe"){
             if(periodoDato == 1 && rangoDato == 1){
                 //            xmlModel.source = kmlWolrd_24h_100m
+                GlobalStorage.xmlModel.source = kmlEurope_24h_100m
                 console.log(kmlWolrd_24h_100m)
             }else if(periodoDato == 1 && rangoDato == 2){
                 //            xmlModel.source = kmlWolrd_24h_300m
+                GlobalStorage.xmlModel.source = kmlEurope_24h_300m
                 console.log(kmlWolrd_24h_300m)
             }else if(periodoDato == 2 && rangoDato == 1){
                 //            xmlModel.source = kmlWolrd_48h_100m
+                GlobalStorage.xmlModel.source = kmlEurope_48h_100m
                 console.log(kmlWolrd_48h_100m)
             }else{
                 //            xmlModel.source = kmlWolrd_48h_300m
+                GlobalStorage.xmlModel.source = kmlEurope_48h_300m
                 console.log(kmlWolrd_48h_300m)
             }
         }

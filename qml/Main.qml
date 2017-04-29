@@ -124,8 +124,16 @@ App {
                     text: model.cords.x.toString() + " - " + model.cords.y.toString()
                 }
                 Text{
+                    id: progress
                     anchors.centerIn: parent
-                   // text:xmlModel.firePoints.length
+                    text: "Text"
+                    Connections{
+                     target: GlobalStorage.xmlModel
+                     onDownloadProgress: {
+                      console.log("PROGRESS UPDATE")
+                         progress.text = "Download Progress: " + (received/total).toString()
+                     }
+                    }
                 }
             }
 

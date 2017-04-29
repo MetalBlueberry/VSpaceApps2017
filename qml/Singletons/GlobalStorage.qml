@@ -35,5 +35,6 @@ WebStorage {
       id: internalXmlModel
 
       Component.onCompleted: xmlModel.getData()
+      //onDownloadProgress: console.log("PRORESS UPDATE")
   }
 }

@@ -67,11 +67,12 @@ NavigationItem{
             onPointsChanged:{
                 console.log("cargando")
                 map.clearMapItems()
-                for(var x = 0; x < GlobalStorage.xmlModel.firePoints.length; x++){
-
-                    var pointObj = GlobalStorage.xmlModel.firePoints[x]
+                var auxObj = GlobalStorage.xmlModel.firePoints;
+                var auxEndCondition = GlobalStorage.xmlModel.firePoints.length
+                for(var x = 0; x < auxEndCondition; x++){
+                    var pointObj = auxObj[x]
                     var circle = Qt.createQmlObject('FireIndicator { punto: Qt.point('+pointObj.cords.x+','+pointObj.cords.y+')}', map)
-                        console.log(pointObj.cords)
+                  //      console.log(pointObj.cords)
                     map.addMapItem(circle);
                 }
             }

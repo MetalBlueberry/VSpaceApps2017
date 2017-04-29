@@ -14,12 +14,17 @@ QQmlListProperty<FireMapPoint> XmlMapParser::points()
 
 void XmlMapParser::getData()
 {
+    qDebug() << "REQUEST";
+    qDebug() << getSource();
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
 
 
-    manager->get(QNetworkRequest(QUrl(getSource())));
+    QNetworkReply *reply = manager->get(QNetworkRequest(QUrl(getSource())));
+
+    connect(reply,SIGNAL(downloadProgress(qint64,qint64)),this,SIGNAL(downloadProgress(qint64,qint64)));
+
 }
 
 void XmlMapParser::dumpDebugData()
@@ -52,6 +57,10 @@ void XmlMapParser::replyFinished(QNetworkReply *reply)
     qDebug() <<"REPLY";
     //qDebug() << reply->readAll();
     QXmlStreamReader reader(reply);
+    for(FireMapPoint * p : firePoints){
+        delete p;
+    }
+    firePoints.clear();
 
     if (reader.readNextStartElement()) {
         if (reader.name() == "kml"){
@@ -105,6 +114,7 @@ void XmlMapParser::replyFinished(QNetworkReply *reply)
     }
     emit pointsChanged();
     emit fireCountChanged();
-    dumpDebugData();
+   // dumpDebugData();
+    delete sender();
 
 }
