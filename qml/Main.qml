@@ -131,6 +131,7 @@ App {
 
         }
         Options{}
+        VentanaNota{}
     }
 
 }

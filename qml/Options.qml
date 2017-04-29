@@ -9,7 +9,7 @@ NavigationItem{
 
     property var periodoDato: "1"
     property var rangoDato: "1"
-    property var zoneDato: "Europe"
+    property var zonaDato: "Europe"
 
     property var kmlWolrd_24h_100m: "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Global_24h.kml"
     property var kmlWolrd_24h_300m: "https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/kml/VNP14IMGTDL_NRT_Global_24h.kml"
@@ -21,26 +21,35 @@ NavigationItem{
     property var kmlEurope_48h_100m: "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Europe_48h.kml"
     property var kmlEurope_48h_300m: "https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/kml/VNP14IMGTDL_NRT_Europe_48h.kml"
 
-    ListPage{
+    Page{
         id: btopciones
         ColumnLayout {
+            anchors.rightMargin: 10
+            anchors.leftMargin: 10
+            anchors.bottomMargin: 10
+            anchors.topMargin: 10
+            anchors.fill: parent
+            spacing: 5
             Column {
                 id: periodo
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Label {
                     text: qsTr("Periodo")
                     font.bold: true
-                    font.pixelSize: 18
+                    font.pixelSize: sp(18)
                 }
                 RadioButton {
                     checked: true
-                    text: qsTr("24h")
+                    text: qsTr("24 h")
+                    font.pixelSize: sp(18)
                     onClicked: {
                         periodoDato = "1"
                         changeKmlSource()
                     }
                 }
                 RadioButton {
-                    text: qsTr("48h")
+                    text: qsTr("48 h")
+                    font.pixelSize: sp(18)
                     onClicked: {
                         periodoDato = "2"
                         changeKmlSource()
@@ -50,32 +59,46 @@ NavigationItem{
 
             Rectangle{
                 color: "lightgray"
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 width: btopciones.width
                 height: 1
             }
 
             Column{
                 id: rango
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Label {
                     text: qsTr("Rango")
                     font.bold: true
-                    font.pixelSize: 18
+                    font.pixelSize: sp(18)
                 }
                 RadioButton {
                     checked: true
-                    text: qsTr("100m")
+                    text: qsTr("1 km")
+                    font.pixelSize: sp(18)
                     onClicked: {
                         rangoDato = "1"
                         changeKmlSource()
                     }
                 }
                 RadioButton {
-                    text: qsTr("300m")
+                    text: qsTr("375 m")
+                    font.pixelSize: sp(18)
                     onClicked: {
                         rangoDato = "2"
                         changeKmlSource()
                     }
                 }
+            }
+
+            Rectangle {
+                id: rectangle
+                width: 200
+                height: 200
+                color: "#00000000"
+                visible: true
+                Layout.fillWidth: true
+                Layout.fillHeight: true
             }
         }
     }
