@@ -37,36 +37,6 @@ App {
         //close.accepted = false;
     }
 
-
-    //    WebStorage {
-    //        id: myWebStorage
-
-    //        // this can be read in the Text element below
-    //        property int appStartedCounter
-
-    //        onInitiallyInServerSyncOrErrorChanged: {
-    //            // also increase the app counter, if there is no internet connection
-    //            if(initiallyInServerSyncOrError) {
-    //                increaseAppStartedCounter()
-    //            }
-    //        }
-
-    //        function increaseAppStartedCounter() {
-    //            var appStarts = myWebStorage.getValue("numAppStarts")
-    //            // if the app was started for the first time, this will be undefined; in that case set it to 1
-    //            if(appStarts === undefined) {
-    //                appStarts = 1
-    //            } else {
-    //                appStarts++
-    //            }
-    //            myWebStorage.setValue("numAppStarts", appStarts)
-
-    //            // set the property to the stored value
-    //            appStartedCounter = appStarts
-
-    //        }
-    //    }
-    //inicializa el módulo de comunicación
     VPlayGameNetwork {
         id: gameNetwork
         // created in the V-Play Web Dashboard
@@ -95,22 +65,15 @@ App {
 
         }
         NavigationItem{
-            title: qsTr("Mensajes")
+            title: qsTr("Coordenadas")
 
             ListPage{
-
-                //                XmlListModel{
-                //                    id: xmlModel
-                //                   // source: "file:///Users/Victor/Downloads/data.xml"
-                //                  //  source: "file:///Users/Victor/Downloads/MODIS_C6_Europe_24h.kml"
-                //                    source: "http://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Europe_24h.kml"
-                //                    namespaceDeclarations: "declare namespace media=\"http://www.opengis.net/kml/2.2\";"
-                //                   // query: "/kml/Placemark"
-                //                    query: "/kml/Document/Folder/Placemark"
-                //                    XmlRole { name: "name"; query: "name/string()" }
-                //                    XmlRole { name: "point"; query: "Point/coordinates/string()" }
-                //                }
-
+                id: coordenadasPage
+//                listView.header : Rectangle{
+//                    width: coordenadasPage.width
+//                    height: 32
+//                    color: "black"
+//                }
                 anchors.fill: parent
                 pullToRefreshHandler.pullToRefreshEnabled: true
                 pullToRefreshHandler.onRefresh: {
@@ -128,11 +91,11 @@ App {
                     anchors.centerIn: parent
                     text: "Text"
                     Connections{
-                     target: GlobalStorage.xmlModel
-                     onDownloadProgress: {
-                      console.log("PROGRESS UPDATE")
-                         progress.text = "Download Progress: " + (received/total).toString()
-                     }
+                        target: GlobalStorage.xmlModel
+                        onDownloadProgress: {
+                            //  console.log("PROGRESS UPDATE")
+                            progress.text = "Download Progress: " + (received/total).toString()
+                        }
                     }
                 }
             }

@@ -50,6 +50,7 @@ private slots:
 
 private:
     QList<FireMapPoint*> firePoints;
+    bool requestRunning = false;
 };
 
 #endif // XMLMAPPARSER_H

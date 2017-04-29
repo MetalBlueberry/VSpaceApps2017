@@ -8,6 +8,8 @@ import "Mapa/"
 import BackButtonSignal 1.0
 import GlobalStorage 1.0
 
+import QtQuick.XmlListModel 2.0
+
 NavigationItem{
     title: qsTr("Calcifer")
 
@@ -62,21 +64,56 @@ NavigationItem{
         //                onPuntoChanged: console.log(punto)
         //            }
         //        }
+
+        //Función para añadir los fuego al mapa
         Connections{
+            id: globalStorageConnection
             target: GlobalStorage.xmlModel
             onPointsChanged:{
-                console.log("cargando")
                 map.clearMapItems()
+                globalStorageConnection.reloadItems()
+                //notesXml.reloadItems()
+            }
+            function reloadItems(){
+                console.log("cargando fuego")
                 var auxObj = GlobalStorage.xmlModel.firePoints;
                 var auxEndCondition = GlobalStorage.xmlModel.firePoints.length
                 for(var x = 0; x < auxEndCondition; x++){
                     var pointObj = auxObj[x]
                     var circle = Qt.createQmlObject('FireIndicator { punto: Qt.point('+pointObj.cords.x+','+pointObj.cords.y+')}', map)
-                  //      console.log(pointObj.cords)
+                    //      console.log(pointObj.cords)
                     map.addMapItem(circle);
                 }
             }
         }
+        XmlListModel{
+            id: notesXml
+            xml: GlobalStorage.UserNotesXml
+            //source: "http://www.mysite.com/feed.xml"
+            query: "/Notes/note"
+            XmlRole { name: "texto"; query: "Texto/string()" }
+            XmlRole { name: "latitude"; query: "Latitude/string()" }
+            XmlRole { name: "longitude"; query: "Longitude/string()" }
+            onXmlChanged: {
+                map.clearMapItems()
+                globalStorageConnection.reloadItems()
+               // notesXml.reloadItems()
+            }
+            function reloadItems()
+            {
+
+                console.log("cargando notas")
+                var auxObj = notesXml;
+                var auxEndCondition = notesXml.count
+                for(var x = 0; x < auxEndCondition; x++){
+                    var pointObj = auxObj[x]
+                    var note = Qt.createQmlObject('MapNote { }', map)
+                    //      console.log(pointObj.cords)
+                    map.addMapItem(note);
+                }
+            }
+        }
+
 
 
         IndicadorSeleccion{
@@ -99,13 +136,13 @@ NavigationItem{
                 text: GlobalStorage.xmlModel.fireCount.toString()
             }
         }
-//        AppSlider {
-//            id: slider
-//            anchors.top: parent.top
-//            anchors.left: parent.verticalCenter
-//            anchors.right: parent.right
-//            from:0
-//            to:1000
-//        }
+        //        AppSlider {
+        //            id: slider
+        //            anchors.top: parent.top
+        //            anchors.left: parent.verticalCenter
+        //            anchors.right: parent.right
+        //            from:0
+        //            to:1000
+        //        }
     }
 }
