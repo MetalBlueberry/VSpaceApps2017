@@ -9,6 +9,8 @@ WebStorage {
   // this can be read in the Text element below
   property int appStartedCounter
 
+
+
   onInitiallyInServerSyncOrErrorChanged: {
     // also increase the app counter, if there is no internet connection
     if(initiallyInServerSyncOrError) {

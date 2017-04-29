@@ -8,21 +8,29 @@ import BackButtonSignal 1.0
 MapQuickItem {
     id:base
     sourceItem: Rectangle{
-        width: dp(32)
+        color: "orange"
+        width: dp(32)/10
         height: width
-        id: image
         radius: width
-        color: "transparent"
-        border.color: "red"
-        border.width: dp(1)
+        id: image
         Rectangle{
             anchors.centerIn: parent
-            color: "orange"
-            width: parent.width /10
+            width: parent.width*10
             height: width
+            id: aura
             radius: width
-        }
+            color: "transparent"
+            border.color: "red"
+            border.width: dp(1)
+            ParallelAnimation {
+                running: true
+                loops:  Animation.Infinite
+                NumberAnimation{target: aura; property: "width"; duration: 1000 ; from: dp(24) ; to: dp(32); easing.type: Easing.OutCubic }
+                NumberAnimation{target: aura; property: "opacity"; duration: 1000 ; from: 1 ; to: 0;  easing.type: Easing.OutCubic}
+            }
 
+
+        }
     }
 
     anchorPoint.x: image.width / 2

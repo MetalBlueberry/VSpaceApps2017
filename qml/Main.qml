@@ -14,6 +14,7 @@ import QtQuick.XmlListModel 2.0
 App {
     // You get free licenseKeys from https://v-play.net/licenseKey
     // With a licenseKey you can:
+    //Connections{
     //  * Publish your games & apps for the app stores
     //  * Remove the V-Play Splash Screen or set a custom one (available with the Pro Licenses)
     //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
@@ -34,6 +35,7 @@ App {
         //Cancelar cerrado de la aplicación
         //close.accepted = false;
     }
+
 
     WebStorage {
         id: myWebStorage
@@ -88,68 +90,9 @@ App {
             color: navigation.navigationDrawerItemPressed ? "red" : "green"
         }
 
-        NavigationItem{
-            title: qsTr("Calcifer")
+       FireMap{
 
-            AppMap {
-                id: map
-                anchors.fill: parent
-
-                // configure plugin for displaying map here
-                // see http://doc.qt.io/qt-5/qtlocation-index.html#plugin-references-and-parameters
-                // for a documentation of possible Location Plugins
-                plugin: Plugin
-                {
-                    id: plugin
-                    //Plugin 1
-                    name: "osm"
-
-                    //Plugin 2
-                    //                name: "mapbox"
-                    //                parameters: [  PluginParameter {
-                    //                    name: "mapbox.map_id"
-                    //                    value: "mapbox.streets"
-                    //                  },
-                    //                  PluginParameter {
-                    //                    name: "mapbox.access_token"
-                    //                    value: "pk.eyJ1IjoiZ3R2cGxheSIsImEiOiJjaWZ0Y2pkM2cwMXZqdWVsenJhcGZ3ZDl5In0.6xMVtyc0CkYNYup76iMVNQ"
-                    //                  }]
-
-                }
-
-                copyrightsVisible:  false
-
-                enableUserPosition: true
-                showUserPosition: true
-
-                // Center map to Burgos
-                center: QtPositioning.coordinate(42.358308, -3.642678)
-                zoomLevel: 13
-                //onMapClicked: zoomToUserPosition()
-
-                IndicadorSeleccion{
-                    id:marker
-                    coordinate: map.center
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        marker.coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
-                    }
-                }
-
-                FloatingActionButton{
-                    icon: IconType.asterisk
-                    onClicked: map.zoomToUserPosition()
-                    visible: true // show on all platforms, default is only Android
-                    Text {
-                        anchors.centerIn: parent
-                        text: myWebStorage.appStartedCounter.toString()
-                    }
-                }
-            }
-        }
+       }
         NavigationItem{
             title: qsTr("Mensajes")
 
