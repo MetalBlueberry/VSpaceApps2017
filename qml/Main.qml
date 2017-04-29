@@ -98,7 +98,8 @@ App {
             title: qsTr("Mensajes")
 
             ListPage{
-
+                title: qsTr("Coordenadas")
+                   anchors.margins: 8
                 //                XmlListModel{
                 //                    id: xmlModel
                 //                   // source: "file:///Users/Victor/Downloads/data.xml"
@@ -118,11 +119,9 @@ App {
                     console.log("Loading....")
                 }
                 model: GlobalStorage.xmlModel.firePoints
-                delegate: Text{
-                    width: 100
-                    height: 25
-                    text: model.cords.x.toString() + " - " + model.cords.y.toString()
-                }
+                delegate: ListFindItem{}
+                listView.spacing: 4
+
                 Text{
                     id: progress
                     anchors.centerIn: parent
