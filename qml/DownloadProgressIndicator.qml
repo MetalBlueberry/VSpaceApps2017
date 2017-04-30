@@ -22,7 +22,7 @@ Item {
         anchors.horizontalCenter: activity.horizontalCenter
         from: 0
         to: 1
-        //value:
+        value: GlobalStorage.downloadProgress
     }
 //    Connections{
 //        target: GlobalStorage

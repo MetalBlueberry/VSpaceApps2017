@@ -130,6 +130,17 @@ NavigationItem{
                 GlobalStorage.xmlModel.source = kmlEurope_48h_300m
                 console.log(kmlEurope_48h_300m)
             }
+            cambios = true;
         }
+    }
+    property bool cambios: false;
+    onVisibleChanged: {
+        if(!base.visible && cambios){
+            GlobalStorage.xmlModel.getData()
+        }else{
+            cambios = false
+        }
+
+        //console.log("OPCIONES VISIBLE: " + base.visible)
     }
 }

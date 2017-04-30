@@ -4,7 +4,7 @@ import QtPositioning 5.0
 
 MouseArea{
     height: 100
-    width: parent.width
+    //width: parent.width
 
     signal showPlace(var coordinate)
 

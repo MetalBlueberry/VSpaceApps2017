@@ -133,14 +133,12 @@ NavigationItem{
             }
         }
 
-        FloatingActionButton{
+        FloatingActionButton{           
+           // enabled: map.userPositionAvailable
             icon: IconType.asterisk
             onClicked: map.zoomToUserPosition()
-            visible: true // show on all platforms, default is only Android
-            Text {
-                anchors.centerIn: parent
-                text: GlobalStorage.xmlModel.fireCount.toString()
-            }
+            visible: map.userPositionAvailable // show on all platforms, default is only Android
+
         }
         //        AppSlider {
         //            id: slider
@@ -154,9 +152,9 @@ NavigationItem{
 
             anchors.bottom: parent.bottom
             anchors.left: parent.left
-            anchors.margins: 15
-            width: 50
-            height: 50
+            anchors.margins: dp(10)
+            width: dp(50)
+            height: dp(50)
             id: activity
             source: "qrc:/qml/img/Fire.gif"
             playing: true

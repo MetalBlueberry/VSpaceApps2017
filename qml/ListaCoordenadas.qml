@@ -21,6 +21,7 @@ NavigationItem{
         //                    color: "black"
         //                }
         anchors.fill: parent
+        anchors.margins: dp(5)
         pullToRefreshHandler.pullToRefreshEnabled: true
         pullToRefreshHandler.onRefresh: {
             console.log("Loading")
@@ -29,6 +30,7 @@ NavigationItem{
         }
         model: GlobalStorage.xmlModel.firePoints
         delegate: ListFindItem{
+            width: coordenadasPage.width
             onShowPlace: {
                 navigation.currentIndex = 0
                 firemap.showPlace(coordinate)
