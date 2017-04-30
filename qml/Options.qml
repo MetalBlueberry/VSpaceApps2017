@@ -31,7 +31,7 @@ NavigationItem{
             anchors.fill: parent
             spacing: 5
             Label{
-            text: qsTr("Elige la fuente de datos")
+                text: qsTr("Elige la fuente de datos")
             }
             Column {
                 id: periodo
@@ -110,8 +110,9 @@ NavigationItem{
         }
     }
     function changeKmlSource(){
-        GlobalStorage.markerSize = rangoDato;
+
         if(zonaDato == "Europe"){
+            //GlobalStorage.markerSize = 1;
             if(periodoDato == 1 && rangoDato == 1){
                 //            xmlModel.source = kmlWolrd_24h_100m
                 GlobalStorage.xmlModel.source = kmlEurope_24h_100m

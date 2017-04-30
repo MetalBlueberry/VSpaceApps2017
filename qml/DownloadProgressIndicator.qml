@@ -22,14 +22,14 @@ Item {
         anchors.horizontalCenter: activity.horizontalCenter
         from: 0
         to: 1
-        value: GlobalStorage.downloadProgress
+        //value:
     }
-    //    Connections
-    //        target: GlobalStorage.xmlModel
-    //        onDownloadProgress: {
-    //            //  console.log("PROGRESS UPDATE")
-    //            bar.value = (received/total)
-    //        }
-    //    }
+//    Connections{
+//        target: GlobalStorage
+//        onDownloadProgressChanged:{
+//            console.log("Update PRogrss Bar")
+//           bar.value = GlobalStorage.downloadProgress
+//        }
+//    }
 
 }

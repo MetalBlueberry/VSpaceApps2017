@@ -71,12 +71,18 @@ WebStorage {
 
     XmlMapParser{
         id: internalXmlModel
-      //  source: "file:///C:/Users/ortegas/Desktop/MODIS_C6_Europe_24h.kml"
+        //  source: "file:///C:/Users/ortegas/Desktop/MODIS_C6_Europe_24h.kml"
         Component.onCompleted: xmlModel.getData()
-        onDownloadProgress: {
-            //  console.log("PROGRESS UPDATE")
-            myWebStorage.downloadProgress = received/total;
-        }
+//        onDownloadProgress: {
+//              console.log("PROGRESS UPDATE")
+//            console.log(received)
+//            console.log(total)
+//            if(total != 0){
+//                myWebStorage.downloadProgress = received/total;
+//            }else{
+//                myWebStorage.downloadProgress = 0
+//            }
+//        }
         //onDownloadProgress: console.log("PRORESS UPDATE")
     }
 }

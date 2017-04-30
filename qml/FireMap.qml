@@ -159,8 +159,8 @@ NavigationItem{
             height: 50
             id: activity
             source: "qrc:/qml/img/Fire.gif"
-            playing: GlobalStorage.downloadProgress < 1
-            visible: playing
+            playing: true
+            visible: GlobalStorage.downloadProgress < 1
         }
     }
 

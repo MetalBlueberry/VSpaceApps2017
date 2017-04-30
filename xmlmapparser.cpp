@@ -16,6 +16,7 @@ QQmlListProperty<FireMapPoint> XmlMapParser::points()
 
 void XmlMapParser::getData()
 {
+    qDebug() << "TRY REQUEST";
     if( requestRunning ) return;
     requestRunning = true;
 
@@ -54,6 +55,7 @@ FireMapPoint *XmlMapParser::atFunction(QQmlListProperty<FireMapPoint> *property,
 
 int XmlMapParser::countFunction(QQmlListProperty<FireMapPoint> *property)
 {
+    qDebug() << "Counting";
     XmlMapParser *list = qobject_cast<XmlMapParser*>(property->object);
     if(list){
         return list->firePoints.count();
@@ -81,9 +83,10 @@ bool XmlMapParser::lessThan(const FireMapPoint* a, const FireMapPoint* b)
 
 void XmlMapParser::sortByProximity(QPointF userPosition)
 {
+    qDebug() << "Sorting";
     XmlMapParser::currentUserPosition = userPosition;
     std::sort(firePoints.begin(), firePoints.end(), XmlMapParser::lessThan);
-        emit pointsChanged();
+    emit pointsChanged();
 }
 
 void XmlMapParser::replyFinished(QNetworkReply *reply)
@@ -162,8 +165,8 @@ void XmlMapParser::clearListOnSourceChanged()
     //        //reply->deleteLater();
     //    }
     requestRunning = false;
-    for(int x = firePoints.count()-1; x >= 0 ; x--){
-        FireMapPoint * p = firePoints.takeAt(x);
+    while(!firePoints.isEmpty()){
+        FireMapPoint * p = firePoints.takeFirst();
         p->deleteLater();
     }
     firePoints.clear();

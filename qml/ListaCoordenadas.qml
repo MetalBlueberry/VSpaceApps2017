@@ -23,8 +23,9 @@ NavigationItem{
         anchors.fill: parent
         pullToRefreshHandler.pullToRefreshEnabled: true
         pullToRefreshHandler.onRefresh: {
+            console.log("Loading")
             GlobalStorage.xmlModel.getData()
-            console.log("Loading....")
+            console.log("...")
         }
         model: GlobalStorage.xmlModel.firePoints
         delegate: ListFindItem{
@@ -48,10 +49,10 @@ NavigationItem{
         //            }
         //        }
 
-        FloatingActionButton{
-            visible: true
-            onClicked: GlobalStorage.xmlModel.sortByProximity(Qt.point(42.358651,-3.634317))
-        }
+        //        FloatingActionButton{
+        //            visible: true
+        //            onClicked: GlobalStorage.xmlModel.sortByProximity(Qt.point(42.358651,-3.634317))
+        //        }
     }
 
 }
