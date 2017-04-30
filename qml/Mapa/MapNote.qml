@@ -3,53 +3,106 @@ import QtQuick 2.0
 import QtPositioning 5.5
 import QtLocation 5.5
 import BackButtonSignal 1.0
-
+import QtQuick.Layouts 1.3
 
 MapQuickItem {
     id:base
-    sourceItem: Image{
-        id: image
-        //color: "black"
-        width: 420
-        height: 280
-        sourceSize.width: image.width
-        sourceSize.height: image.height
-        fillMode: Image.Stretch
-      //  radius: width
-        source: "qrc:/qml/img/ventana_nota.svg"
 
+    property bool estadoVentana: true
+    property bool ventanaEstadoTipo
+    property var mensaje
+
+    sourceItem: Rectangle{
+        id: ventanaNota
+        height: image.height + puntoNota.height/2
+        width: image.width
+        color: "transparent"
         Rectangle{
-            width: image.width - 40
-            height: image.height/2
+            id: puntoNota
+            width: 30
+            height: width
+            radius: width
+            color: "#8ebbf5"
+            border.color: "white"
+            border.width: 4
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.verticalCenterOffset:  -image.height/5
-            radius: 10
-            color: "white"
-            AppTextEdit{
-//                width: parent.width
-//                height: parent.height
-                anchors.margins: 8
+            anchors.verticalCenter: parent.bottom
+            MouseArea {
                 anchors.fill: parent
-                placeholderText: qsTr("Escribe un mensaje")
-                font.pixelSize: sp(14)
+                onClicked: {
+                    toggleVentana()
+                }
             }
         }
-        AppButton{
-            id: btGuardarNota
-            text: "Guardar"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.verticalCenterOffset:  image.height/6
-            width: 200
-            height: 50
-            visible: true
-            fontBold: true
-        }
 
+        Image{
+            id: image
+            width: 420
+            height: 280
+            sourceSize.width: image.width
+            sourceSize.height: image.height
+            fillMode: Image.Stretch
+            source: "qrc:/qml/img/ventana_nota.svg"
+            visible: false
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.bottomMargin: parent.height / 2.5
+                anchors.leftMargin: 15
+                anchors.rightMargin: 15
+                anchors.topMargin: 15
+                Rectangle{
+                    anchors.fill: parent
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset:  -image.height/5
+                    radius: 10
+                    color: "white"
+                    AppTextEdit{
+                        id: etNota
+                        anchors.margins: 8
+                        anchors.fill: parent
+                        placeholderText: qsTr("Escribe un mensaje")
+                        font.pixelSize: sp(14)
+                        visible: false
+                    }
+
+                    AppText{
+                        id: tvNota
+                        anchors.margins: 8
+                        anchors.fill: parent
+                        text: mensaje
+                        font.pixelSize: sp(14)
+                        horizontalAlignment : Text.AlignHCenter
+                        verticalAlignment : Text.AlignVCenter
+                        visible: false
+                    }
+                }
+                AppButton{
+                    id: btGuardarNota
+                    text: "Guardar"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: etNota.bottom
+                    anchors.topMargin: 20
+                    width: 200
+                    height: 50
+                    fontBold: true
+                    visible: false
+                }
+            }
+        }
     }
 
-    anchorPoint.x: image.width / 2
-    anchorPoint.y: image.height
+    anchorPoint.x: ventanaNota.width / 2
+    anchorPoint.y: ventanaNota.height
 
+    function toggleVentana(){
+        tipoVentana()
+        image.visible = estadoVentana
+        estadoVentana = !estadoVentana
+    }
+    function tipoVentana(){
+        etNota.visible = ventanaEstadoTipo
+        btGuardarNota.visible = ventanaEstadoTipo
+        tvNota.visible = !ventanaEstadoTipo
+    }
 }
