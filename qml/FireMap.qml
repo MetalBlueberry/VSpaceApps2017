@@ -75,7 +75,7 @@ NavigationItem{
             id: globalStorageConnection
             target: GlobalStorage.xmlModel
             onPointsChanged:{
-                 map.clearMapItems()
+                map.clearMapItems()
                 globalStorageConnection.reloadItems()
                 //notesXml.reloadItems()
             }
@@ -150,7 +150,7 @@ NavigationItem{
         //            from:0
         //            to:1000
         //        }
-        AppActivityIndicator{
+        AnimatedImage{
 
             anchors.bottom: parent.bottom
             anchors.left: parent.left
@@ -158,9 +158,9 @@ NavigationItem{
             width: 50
             height: 50
             id: activity
-            animating: GlobalStorage.downloadProgress < 1
-                hidesWhenStopped: true
-            // anchors.centerIn: parent
+            source: "qrc:/qml/img/Fire.gif"
+            playing: GlobalStorage.downloadProgress < 1
+            visible: playing
         }
     }
 
