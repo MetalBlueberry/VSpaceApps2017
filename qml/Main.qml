@@ -65,7 +65,7 @@ App {
         }
         ListaCoordenadas{}
         Options{}
-        VentanaNota{}
+        //VentanaNota{}
     }
 
 }
