@@ -75,7 +75,9 @@ NavigationItem{
             id: globalStorageConnection
             target: GlobalStorage.xmlModel
             onPointsChanged:{
-                map.clearMapItems()
+                map.update()
+                //map.clearMapItems()
+                auxModel.clear()
                 globalStorageConnection.reloadItems()
                 //notesXml.reloadItems()
             }
@@ -85,39 +87,55 @@ NavigationItem{
                 var auxEndCondition = GlobalStorage.xmlModel.firePoints.length
                 for(var x = 0; x < auxEndCondition; x++){
                     var pointObj = auxObj[x]
-                    var circle = Qt.createQmlObject('FireIndicator { punto: Qt.point('+pointObj.cords.x+','+pointObj.cords.y+')}', map)
+                    //var circle = Qt.createQmlObject('FireIndicator { punto: Qt.point('+pointObj.cords.x+','+pointObj.cords.y+')}', map)
+                    auxModel.append({"x":pointObj.cords.x,"y":pointObj.cords.y})
                     //      console.log(pointObj.cords)
-                    map.addMapItem(circle);
+                    //map.addMapItem(circle);
                 }
             }
         }
-        XmlListModel{
-            id: notesXml
-            xml: GlobalStorage.userNotesXml
-            //source: "http://www.mysite.com/feed.xml"
-            query: "/Notes/note"
-            XmlRole { name: "texto"; query: "Texto/string()" }
-            XmlRole { name: "latitude"; query: "Latitude/string()" }
-            XmlRole { name: "longitude"; query: "Longitude/string()" }
-            onXmlChanged: {
-                map.clearMapItems()
-                globalStorageConnection.reloadItems()
-                // notesXml.reloadItems()
+        ListModel{
+            id: auxModel
+            ListElement{
+                x: 42.35
+                y: -3.63
             }
-            function reloadItems()
-            {
+        }
 
-                console.log("cargando notas")
-                var auxObj = notesXml;
-                var auxEndCondition = notesXml.count
-                for(var x = 0; x < auxEndCondition; x++){
-                    var pointObj = auxObj[x]
-                    var note = Qt.createQmlObject('MapNote { }', map)
-                    //      console.log(pointObj.cords)
-                    map.addMapItem(note);
-                }
+        MapItemView{
+            model: auxModel
+            delegate: FireIndicator{
+                punto: Qt.point(model.x,model.y)
             }
+
         }
+        //        XmlListModel{
+        //            id: notesXml
+        //            xml: GlobalStorage.userNotesXml
+        //            //source: "http://www.mysite.com/feed.xml"
+        //            query: "/Notes/note"
+        //            XmlRole { name: "texto"; query: "Texto/string()" }
+        //            XmlRole { name: "latitude"; query: "Latitude/string()" }
+        //            XmlRole { name: "longitude"; query: "Longitude/string()" }
+        //            onXmlChanged: {
+        //                map.clearMapItems()
+        //                globalStorageConnection.reloadItems()
+        //                // notesXml.reloadItems()
+        //            }
+        //            function reloadItems()
+        //            {
+
+        //                console.log("cargando notas")
+        //                var auxObj = notesXml;
+        //                var auxEndCondition = notesXml.count
+        //                for(var x = 0; x < auxEndCondition; x++){
+        //                    var pointObj = auxObj[x]
+        //                    var note = Qt.createQmlObject('MapNote { }', map)
+        //                    //      console.log(pointObj.cords)
+        //                    map.addMapItem(note);
+        //                }
+        //            }
+        //        }
 
 
 
@@ -133,8 +151,8 @@ NavigationItem{
             }
         }
 
-        FloatingActionButton{           
-           // enabled: map.userPositionAvailable
+        FloatingActionButton{
+            // enabled: map.userPositionAvailable
             icon: IconType.asterisk
             onClicked: map.zoomToUserPosition()
             visible: map.userPositionAvailable // show on all platforms, default is only Android
