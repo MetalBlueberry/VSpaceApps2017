@@ -93,7 +93,7 @@ NavigationItem{
         }
         XmlListModel{
             id: notesXml
-            xml: GlobalStorage.UserNotesXml
+            xml: GlobalStorage.userNotesXml
             //source: "http://www.mysite.com/feed.xml"
             query: "/Notes/note"
             XmlRole { name: "texto"; query: "Texto/string()" }

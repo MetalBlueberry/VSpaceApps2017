@@ -31,13 +31,19 @@ public:
     QString getSource()const {return source;}
     void setSource(QString data){
         //if(data.compare(source) != 0){
-            source = data;
-            emit sourceChanged();
+        source = data;
+        emit sourceChanged();
         //}
     }
 
     //int fireCount= 0;
     int getFireCount() const{return firePoints.length();}
+    static bool lessThan(const FireMapPoint *a, const FireMapPoint *b);
+
+static QPointF currentUserPosition;
+
+public slots:
+    void sortByProximity(QPointF userPosition);
 
 signals:
     void pointsChanged();
@@ -45,12 +51,18 @@ signals:
     void fireCountChanged();
     void downloadProgress(qint64 received,qint64 total);
 
+
 private slots:
     void replyFinished(QNetworkReply* reply);
+    void clearListOnSourceChanged();
 
 private:
     QList<FireMapPoint*> firePoints;
     bool requestRunning = false;
+
+
+
+    QNetworkReply *reply = Q_NULLPTR;
 };
 
 #endif // XMLMAPPARSER_H

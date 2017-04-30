@@ -8,7 +8,6 @@ import "Mapa/"
 import BackButtonSignal 1.0
 import GlobalStorage 1.0
 
-
 import QtQuick.XmlListModel 2.0
 import Calcifer 1.0
 
@@ -64,47 +63,7 @@ App {
         FireMap{
             id:firemap
         }
-        NavigationItem{
-            title: qsTr("Coordenadas")
-
-            ListPage{
-
-                id: coordenadasPage
-                //                listView.header : Rectangle{
-                //                    width: coordenadasPage.width
-                //                    height: 32
-                //                    color: "black"
-                //                }
-                anchors.fill: parent
-                pullToRefreshHandler.pullToRefreshEnabled: true
-                pullToRefreshHandler.onRefresh: {
-                    GlobalStorage.xmlModel.getData()
-                    console.log("Loading....")
-                }
-                model: GlobalStorage.xmlModel.firePoints
-                delegate: ListFindItem{
-                    onShowPlace: {
-                        navigation.currentIndex = 0
-                        firemap.showPlace(coordinate)
-                    }
-                }
-                listView.spacing: 4
-
-                Text{
-                    id: progress
-                    anchors.centerIn: parent
-                    text: "Text"
-                    Connections{
-                        target: GlobalStorage.xmlModel
-                        onDownloadProgress: {
-                            //  console.log("PROGRESS UPDATE")
-                            progress.text = "Download Progress: " + (received/total).toString()
-                        }
-                    }
-                }
-            }
-
-        }
+        ListaCoordenadas{}
         Options{}
         VentanaNota{}
     }

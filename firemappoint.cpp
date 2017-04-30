@@ -1,4 +1,5 @@
 #include "firemappoint.h"
+#include <QtMath>
 
 FireMapPoint::FireMapPoint(QObject *parent): QObject(parent)
 {
@@ -26,4 +27,10 @@ void FireMapPoint::setName(QString data)
         name = data;
         emit nameChanged();
     }
+}
+
+float FireMapPoint::distanceToPoint(QPointF point) const
+{
+    return qSqrt(qPow((point.x() - this->cords.x()),2) + qPow((point.y() - this->cords.y()),2));
+    //return 10;
 }

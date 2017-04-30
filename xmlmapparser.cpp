@@ -1,10 +1,12 @@
 #include "xmlmapparser.h"
 
+#include <algorithm>
+
 XmlMapParser::XmlMapParser(QObject *parent):
     QObject(parent),
     firePoints(QList<FireMapPoint*>())
 {
-
+    connect(this,SIGNAL(sourceChanged()),this,SLOT(clearListOnSourceChanged()));
 }
 
 QQmlListProperty<FireMapPoint> XmlMapParser::points()
@@ -23,15 +25,13 @@ void XmlMapParser::getData()
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
 
-    QNetworkReply *reply = manager->get(QNetworkRequest(QUrl(getSource())));
+    clearListOnSourceChanged();
+    reply = manager->get(QNetworkRequest(QUrl(getSource())));
 
     connect(reply,SIGNAL(downloadProgress(qint64,qint64)),this,SIGNAL(downloadProgress(qint64,qint64)));
 
-    for(int x = firePoints.count()-1; x >= 0 ; x--){
-        FireMapPoint * p = firePoints.takeAt(x);
-        p->deleteLater();
-    }
-    firePoints.clear();
+
+
     emit pointsChanged();
     emit fireCountChanged();
 }
@@ -61,13 +61,36 @@ int XmlMapParser::countFunction(QQmlListProperty<FireMapPoint> *property)
     return -1;
 }
 
+QPointF XmlMapParser::currentUserPosition = QPointF();
+bool XmlMapParser::lessThan(const FireMapPoint* a, const FireMapPoint* b)
+{
+    return a->distanceToPoint(XmlMapParser::currentUserPosition) < b->distanceToPoint(XmlMapParser::currentUserPosition);
+}
+
+
+
+// int doComparison()
+// {
+//     [..]
+//     QList<QVariant> fieldsList;
+
+//     // Add items to fieldsList.
+
+//     qSort(fieldsList.begin(), fieldsList.end(), variantLessThan);
+// }
+
+void XmlMapParser::sortByProximity(QPointF userPosition)
+{
+    XmlMapParser::currentUserPosition = userPosition;
+    std::sort(firePoints.begin(), firePoints.end(), XmlMapParser::lessThan);
+        emit pointsChanged();
+}
+
 void XmlMapParser::replyFinished(QNetworkReply *reply)
 {
     qDebug() <<"REPLY";
     //qDebug() << reply->readAll();
     QXmlStreamReader reader(reply);
-
-
 
     if (reader.readNextStartElement()) {
         if (reader.name() == "kml"){
@@ -124,4 +147,23 @@ void XmlMapParser::replyFinished(QNetworkReply *reply)
     // dumpDebugData();
     delete sender();
     requestRunning = false;
+}
+
+void XmlMapParser::clearListOnSourceChanged()
+{
+    qDebug() <<"Cleaning";
+    //    if(reply  != Q_NULLPTR && reply->isOpen()) {
+    //        //if(reply->isOpen()){
+    //            reply->abort();
+
+    //        //}
+
+    //        //reply->deleteLater();
+    //    }
+    requestRunning = false;
+    for(int x = firePoints.count()-1; x >= 0 ; x--){
+        FireMapPoint * p = firePoints.takeAt(x);
+        p->deleteLater();
+    }
+    firePoints.clear();
 }

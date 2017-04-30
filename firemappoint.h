@@ -25,6 +25,7 @@ public:
     QString getName() const{ return name;}
     void setName(QString data);
 
+    float distanceToPoint(QPointF point) const;
 signals:
     void cordsChanged();
     void descriptionChanged();
