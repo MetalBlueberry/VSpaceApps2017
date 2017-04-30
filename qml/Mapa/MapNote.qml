@@ -47,7 +47,7 @@ MapQuickItem {
             visible: false
             ColumnLayout {
                 anchors.fill: parent
-                anchors.bottomMargin: parent.height / 2.5
+                anchors.bottomMargin: parent.height / 2.2
                 anchors.leftMargin: 15
                 anchors.rightMargin: 15
                 anchors.topMargin: 15

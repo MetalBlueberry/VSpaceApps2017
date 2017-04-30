@@ -70,7 +70,7 @@ Item {
         }
         ListaCoordenadas{}
         Options{}
-        VentanaNota{}
+        //VentanaNota{}
     }
 
 }
