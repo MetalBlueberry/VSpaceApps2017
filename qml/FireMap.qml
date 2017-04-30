@@ -100,7 +100,7 @@ NavigationItem{
             XmlRole { name: "latitude"; query: "Latitude/string()" }
             XmlRole { name: "longitude"; query: "Longitude/string()" }
             onXmlChanged: {
-                 map.clearMapItems()
+                map.clearMapItems()
                 globalStorageConnection.reloadItems()
                 // notesXml.reloadItems()
             }
@@ -125,7 +125,6 @@ NavigationItem{
             id:marker
             coordinate: map.center
         }
-
 
         MouseArea {
             anchors.fill: parent
