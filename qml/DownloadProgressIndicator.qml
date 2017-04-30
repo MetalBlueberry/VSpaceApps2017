@@ -16,20 +16,20 @@ Item {
     }
     ProgressBar{
         id: bar
-    width: dp(200)
-    height: 20
-    anchors.top: activity.bottom
-    anchors.horizontalCenter: activity.horizontalCenter
-    from: 0
-    to: 1
-
+        width: dp(200)
+        height: 20
+        anchors.top: activity.bottom
+        anchors.horizontalCenter: activity.horizontalCenter
+        from: 0
+        to: 1
+value: GlobalStorage.downloadProgress
     }
-    Connections{
-        target: GlobalStorage.xmlModel
-        onDownloadProgress: {
-            //  console.log("PROGRESS UPDATE")
-            bar.value = (received/total)
-        }
-    }
+//    Connections
+//        target: GlobalStorage.xmlModel
+//        onDownloadProgress: {
+//            //  console.log("PROGRESS UPDATE")
+//            bar.value = (received/total)
+//        }
+//    }
 
 }

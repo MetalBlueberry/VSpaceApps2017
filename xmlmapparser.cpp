@@ -61,7 +61,7 @@ int XmlMapParser::countFunction(QQmlListProperty<FireMapPoint> *property)
     return -1;
 }
 
-QPointF XmlMapParser::currentUserPosition = QPointF();
+QPointF XmlMapParser::currentUserPosition = QPointF(42.358651,-3.634317);
 bool XmlMapParser::lessThan(const FireMapPoint* a, const FireMapPoint* b)
 {
     return a->distanceToPoint(XmlMapParser::currentUserPosition) < b->distanceToPoint(XmlMapParser::currentUserPosition);
@@ -142,6 +142,7 @@ void XmlMapParser::replyFinished(QNetworkReply *reply)
         else
             reader.raiseError(QObject::tr("Incorrect file"));
     }
+    sortByProximity(currentUserPosition);
     emit pointsChanged();
     emit fireCountChanged();
     // dumpDebugData();

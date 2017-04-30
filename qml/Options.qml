@@ -7,8 +7,8 @@ import GlobalStorage 1.0
 NavigationItem{
     title: qsTr("Opciones")
     id:base
-    property var periodoDato: "1"
-    property var rangoDato: "1"
+    property int periodoDato: 1
+    property int rangoDato: 1
     property var zonaDato: "Europe"
 
     //property var kmlWolrd_24h_100m: "https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_Global_24h.kml"
@@ -30,6 +30,9 @@ NavigationItem{
             anchors.topMargin: 10
             anchors.fill: parent
             spacing: 5
+            Label{
+            text: qsTr("Elige la fuente de datos")
+            }
             Column {
                 id: periodo
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -44,7 +47,7 @@ NavigationItem{
                     text: qsTr("24 h")
                     font.pixelSize: sp(18)
                     onClicked: {
-                        periodoDato = "1"
+                        periodoDato = 1
                         changeKmlSource()
                     }
                 }
@@ -53,7 +56,7 @@ NavigationItem{
                     text: qsTr("48 h")
                     font.pixelSize: sp(18)
                     onClicked: {
-                        periodoDato = "2"
+                        periodoDato = 2
                         changeKmlSource()
                     }
                 }
@@ -80,7 +83,7 @@ NavigationItem{
                     text: qsTr("1 km")
                     font.pixelSize: sp(18)
                     onClicked: {
-                        rangoDato = "1"
+                        rangoDato = 1
                         changeKmlSource()
                     }
                 }
@@ -89,7 +92,7 @@ NavigationItem{
                     text: qsTr("375 m")
                     font.pixelSize: sp(18)
                     onClicked: {
-                        rangoDato = "2"
+                        rangoDato = 2
                         changeKmlSource()
                     }
                 }
@@ -107,23 +110,24 @@ NavigationItem{
         }
     }
     function changeKmlSource(){
-        if(zoneDato == "Europe"){
+        GlobalStorage.markerSize = rangoDato;
+        if(zonaDato == "Europe"){
             if(periodoDato == 1 && rangoDato == 1){
                 //            xmlModel.source = kmlWolrd_24h_100m
                 GlobalStorage.xmlModel.source = kmlEurope_24h_100m
-                console.log(kmlWolrd_24h_100m)
+                console.log(kmlEurope_24h_100m)
             }else if(periodoDato == 1 && rangoDato == 2){
                 //            xmlModel.source = kmlWolrd_24h_300m
                 GlobalStorage.xmlModel.source = kmlEurope_24h_300m
-                console.log(kmlWolrd_24h_300m)
+                console.log(kmlEurope_24h_300m)
             }else if(periodoDato == 2 && rangoDato == 1){
                 //            xmlModel.source = kmlWolrd_48h_100m
                 GlobalStorage.xmlModel.source = kmlEurope_48h_100m
-                console.log(kmlWolrd_48h_100m)
+                console.log(kmlEurope_48h_100m)
             }else{
                 //            xmlModel.source = kmlWolrd_48h_300m
                 GlobalStorage.xmlModel.source = kmlEurope_48h_300m
-                console.log(kmlWolrd_48h_300m)
+                console.log(kmlEurope_48h_300m)
             }
         }
     }

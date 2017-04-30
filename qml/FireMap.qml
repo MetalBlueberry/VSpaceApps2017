@@ -75,7 +75,7 @@ NavigationItem{
             id: globalStorageConnection
             target: GlobalStorage.xmlModel
             onPointsChanged:{
-                map.clearMapItems()
+                 map.clearMapItems()
                 globalStorageConnection.reloadItems()
                 //notesXml.reloadItems()
             }
@@ -100,7 +100,7 @@ NavigationItem{
             XmlRole { name: "latitude"; query: "Latitude/string()" }
             XmlRole { name: "longitude"; query: "Longitude/string()" }
             onXmlChanged: {
-                map.clearMapItems()
+                 map.clearMapItems()
                 globalStorageConnection.reloadItems()
                 // notesXml.reloadItems()
             }
@@ -125,6 +125,8 @@ NavigationItem{
             id:marker
             coordinate: map.center
         }
+
+
         MouseArea {
             anchors.fill: parent
             onClicked: {
@@ -149,5 +151,20 @@ NavigationItem{
         //            from:0
         //            to:1000
         //        }
+        AppActivityIndicator{
+
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.margins: 15
+            width: 50
+            height: 50
+            id: activity
+            animating: GlobalStorage.downloadProgress < 1
+                hidesWhenStopped: true
+            // anchors.centerIn: parent
+        }
     }
+
+
+
 }

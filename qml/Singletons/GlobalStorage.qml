@@ -9,6 +9,9 @@ WebStorage {
     // this can be read in the Text element below
     property int appStartedCounter
 
+    property double downloadProgress: 0
+
+    property int markerSize: 1
 
 
     onInitiallyInServerSyncOrErrorChanged: {
@@ -70,6 +73,10 @@ WebStorage {
         id: internalXmlModel
       //  source: "file:///C:/Users/ortegas/Desktop/MODIS_C6_Europe_24h.kml"
         Component.onCompleted: xmlModel.getData()
+        onDownloadProgress: {
+            //  console.log("PROGRESS UPDATE")
+            myWebStorage.downloadProgress = received/total;
+        }
         //onDownloadProgress: console.log("PRORESS UPDATE")
     }
 }
