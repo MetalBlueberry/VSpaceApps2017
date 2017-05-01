@@ -4,7 +4,8 @@ CONFIG += v-play
 QT += positioning location xml network
 
 qmlFolder.source = qml
-DEPLOYMENTFOLDERS += qmlFolder # comment for publishing
+#DEPLOYMENTFOLDERS += qmlFolder # comment for publishing
+#change Config.json publish  or test
 
 assetsFolder.source = assets
 DEPLOYMENTFOLDERS += assetsFolder

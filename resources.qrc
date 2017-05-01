@@ -1,5 +1,22 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml</file>
+        <file>qml/img/Fire.gif</file>
+        <file>qml/img/Fire_2.gif</file>
+        <file>qml/img/ventana_nota.svg</file>
+        <file>qml/Mapa/FireIndicator.qml</file>
+        <file>qml/Mapa/IndicadorSeleccion.qml</file>
+        <file>qml/Mapa/ListFindItem.qml</file>
+        <file>qml/Mapa/MapNote.qml</file>
+        <file>qml/Singletons/BackButtonSignal.qml</file>
+        <file>qml/Singletons/GlobalStorage.qml</file>
+        <file>qml/config.json</file>
+        <file>qml/DownloadProgressIndicator.qml</file>
+        <file>qml/FireMap.qml</file>
+        <file>qml/ListaCoordenadas.qml</file>
+        <file>qml/Main.qml</file>
+        <file>qml/Main.qmlc</file>
+        <file>qml/MainLoader.qml</file>
+        <file>qml/Options.qml</file>
+        <file>qml/VentanaNota.qml</file>
     </qresource>
 </RCC>

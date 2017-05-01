@@ -4,7 +4,7 @@ import VPlay 2.0
 import QtQuick 2.7
 import QtPositioning 5.5
 import QtLocation 5.5
-import "Mapa/"
+import "qrc:/qml/Mapa/"
 import BackButtonSignal 1.0
 import GlobalStorage 1.0
 

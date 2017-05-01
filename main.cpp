@@ -17,10 +17,10 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType( QUrl("qrc:/qml/Singletons/GlobalStorage.qml"), "GlobalStorage", 1, 0, "GlobalStorage" );
 
     qmlRegisterType<XmlMapParser>("Calcifer",1,0,"XmlMapParser");
-qmlRegisterType<FireMapPoint>();
+    qmlRegisterType<FireMapPoint>();
     ///TEST XML
-//    XmlMapParser parser;
-//    parser.getData();
+    //    XmlMapParser parser;
+    //    parser.getData();
 
 
     QQmlApplicationEngine engine;
@@ -34,8 +34,8 @@ qmlRegisterType<FireMapPoint>();
     // this is the preferred deployment option for publishing games to the app stores, because then your qml files and js files are protected
     // to avoid deployment of your qml files and images, also comment the DEPLOYMENTFOLDERS command in the .pro file
     // also see the .pro file for more details
-     //vplay.setMainQmlFileName(QStringLiteral("qrc:/qml/Main.qml"));
-          vplay.setMainQmlFileName(QStringLiteral("qrc:/qml/MainLoader.qml"));
+    // vplay.setMainQmlFileName(QStringLiteral("qrc:/qml/Main.qml"));
+    vplay.setMainQmlFileName(QStringLiteral("qrc:/qml/MainLoader.qml"));
 
     engine.load(QUrl(vplay.mainQmlFileName()));
 
