@@ -41,6 +41,8 @@ ios {
 
 # set application icons for win and macx
 win32 {
+
+TARGET = "Calcifer.exe"
     RC_FILE += win/app_icon.rc
 }
 macx {

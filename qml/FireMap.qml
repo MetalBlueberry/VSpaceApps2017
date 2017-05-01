@@ -12,7 +12,7 @@ import QtQuick.XmlListModel 2.0
 
 NavigationItem{
     id:base
-    title: qsTr("Calcifer")
+    title: qsTr("Cálcifer")
     function showPlace(coordinate){
         center = coordinate
     }
