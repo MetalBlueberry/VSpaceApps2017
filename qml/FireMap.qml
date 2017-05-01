@@ -51,24 +51,9 @@ NavigationItem{
 
         // Center map to Burgos
         //center: QtPositioning.coordinate(42.358308, -3.642678)
-        zoomLevel: 13
+        zoomLevel: 7
         //onMapClicked: zoomToUserPosition()
 
-        //MapItemView{
-        //       Repeater{
-        //            id: pointRepeater
-        //            //model: GlobalStorage.xmlModel.firePoints
-        //            //model: parseInt(GlobalStorage.xmlModel.fireCount.toString())
-        //            model: slider.value
-        //            delegate: FireIndicator{
-        //                //punto: Qt.point(model.cords.x,model.cords.y)
-        //                //punto: Qt.point(42.358651,-3.634317);
-        //                id: ind
-        //                property var pointObj: GlobalStorage.xmlModel.firePoints[model.index]
-        //                punto: Qt.point(ind.pointObj.cords.x,ind.pointObj.cords.y)
-        //                onPuntoChanged: console.log(punto)
-        //            }
-        //        }
 
         //Función para añadir los fuego al mapa
         Connections{
@@ -92,6 +77,7 @@ NavigationItem{
                     //      console.log(pointObj.cords)
                     //map.addMapItem(circle);
                 }
+                updateVisibleItemsInModel()
             }
         }
         ListModel{
@@ -99,13 +85,30 @@ NavigationItem{
             ListElement{
                 x: 0
                 y: 0
+                isVisibleOnMap: true
             }
         }
+        onZoomLevelChanged: updateVisibleItemsInModel()
+        onCenterChanged: updateVisibleItemsInModel()
 
+        function updateVisibleItemsInModel(){
+          //  console.log("Calculando visiblidad")
+            for(var i = 0; i<auxModel.count;i++){
+                var item = auxModel.get(i);
+                item.isVisibleOnMap = map.visibleRegion.contains(QtPositioning.coordinate(item.x,item.y))
+            }
+
+        }
         MapItemView{
+
             model: auxModel
-            delegate: FireIndicator{
+            delegate:  FireIndicator{
+                id: firePointIndicator
+                mapZoom: map.zoomLevel
                 punto: Qt.point(model.x,model.y)
+                isVisibleOnMap: model.isVisibleOnMap
+
+
             }
 
         }
