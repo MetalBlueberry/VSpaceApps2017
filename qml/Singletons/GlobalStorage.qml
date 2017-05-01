@@ -74,9 +74,9 @@ WebStorage {
         //  source: "file:///C:/Users/ortegas/Desktop/MODIS_C6_Europe_24h.kml"
         Component.onCompleted: xmlModel.getData()
         onDownloadProgress: {
-              console.log("PROGRESS UPDATE")
-            console.log(received)
-            console.log(total)
+           //   console.log("PROGRESS UPDATE")
+          //  console.log(received)
+          //  console.log(total)
             if(total != 0){
                 myWebStorage.downloadProgress = received/total;
             }else{

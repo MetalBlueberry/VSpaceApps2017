@@ -112,7 +112,7 @@ NavigationItem{
     function changeKmlSource(){
 
         if(zonaDato == "Europe"){
-            //GlobalStorage.markerSize = 1;
+            GlobalStorage.markerSize = rangoDato;
             if(periodoDato == 1 && rangoDato == 1){
                 //            xmlModel.source = kmlWolrd_24h_100m
                 GlobalStorage.xmlModel.source = kmlEurope_24h_100m
