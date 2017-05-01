@@ -92,10 +92,10 @@ NavigationItem{
         onCenterChanged: updateVisibleItemsInModel()
 
         function updateVisibleItemsInModel(){
-          //  console.log("Calculando visiblidad")
+            //  console.log("Calculando visiblidad")
             for(var i = 0; i<auxModel.count;i++){
                 var item = auxModel.get(i);
-                item.isVisibleOnMap = map.visibleRegion.contains(QtPositioning.coordinate(item.x,item.y))
+                item.isVisibleOnMap = map.visibleRegion.contains(QtPositioning.coordinate(item.x,item.y)) || map.center.distanceTo(QtPositioning.coordinate(item.x,item.y)) < 10000
             }
 
         }
@@ -107,8 +107,6 @@ NavigationItem{
                 mapZoom: map.zoomLevel
                 punto: Qt.point(model.x,model.y)
                 isVisibleOnMap: model.isVisibleOnMap
-
-
             }
 
         }
@@ -146,11 +144,15 @@ NavigationItem{
             id:marker
             coordinate: map.center
         }
-
         MouseArea {
             anchors.fill: parent
+            propagateComposedEvents: true
             onClicked: {
                 marker.coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+            }
+            onDoubleClicked: {
+                map.center = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+                map.zoomLevel += 1
             }
         }
 
