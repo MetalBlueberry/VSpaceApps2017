@@ -5,6 +5,9 @@ App {
 
     id: item
     color: "white"
+    Component.onCompleted: showFullScreen()
+    shutdownAppWithEscapeKeyEnabled: true
+
     Loader{
         id: mainLoader
         visible: false
