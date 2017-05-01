@@ -97,8 +97,8 @@ NavigationItem{
         ListModel{
             id: auxModel
             ListElement{
-                x: 42.35
-                y: -3.63
+                x: 0
+                y: 0
             }
         }
 
